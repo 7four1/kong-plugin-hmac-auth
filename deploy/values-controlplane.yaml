@@ -1,0 +1,16 @@
+# Helm values overlay for the CONTROL PLANE release (kong/kong chart).
+# helm upgrade --install kong-cp kong/kong -n kong -f deploy/values-controlplane.yaml
+#
+# Only the plugin-relevant bits are shown — merge into your existing CP values.
+
+image:
+  repository: <acr>.azurecr.io/kong-hmac
+  tag: "3.9-hmac-1.0.0"      # the custom image built from deploy/Dockerfile
+
+env:
+  # Comma-separated. `bundled` keeps all built-in plugins; append the custom one.
+  # The CP needs this so it can load schema.lua, validate config, and ship the
+  # rendered config to the data planes.
+  plugins: bundled,hmac-custom-auth
+  role: control_plane
+  # ... your existing cluster_cert / database / etc. settings stay as-is

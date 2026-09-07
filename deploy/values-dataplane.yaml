@@ -1,0 +1,16 @@
+# Helm values overlay for the DATA PLANE release (kong/kong chart) on AKS.
+# helm upgrade --install kong-dp kong/kong -n kong -f deploy/values-dataplane.yaml
+#
+# Only the plugin-relevant bits are shown — merge into your existing DP values.
+
+image:
+  repository: <acr>.azurecr.io/kong-hmac
+  tag: "3.9-hmac-1.0.0"      # SAME custom image as the control plane
+
+env:
+  # The DP needs this to actually execute handler.lua on the request path.
+  # If CP and DP disagree on the plugin list, the DP rejects the config push.
+  plugins: bundled,hmac-custom-auth
+  role: data_plane
+  database: "off"
+  # ... your existing cluster_control_plane / cluster_cert / etc. stay as-is

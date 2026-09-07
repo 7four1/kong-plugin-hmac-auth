@@ -1,0 +1,15 @@
+# Lua / LuaRocks
+.luarocks/
+lua_modules/
+*.rock
+*.src.rock
+
+# busted / luacov
+luacov.*.out
+luacov.report.out
+luacov.stats.out
+.busted.cache/
+
+# editors / OS
+.DS_Store
+*.swp

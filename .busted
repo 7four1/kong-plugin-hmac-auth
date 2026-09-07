@@ -1,0 +1,9 @@
+return {
+  default = {
+    verbose = true,
+    ["auto-insulate"] = false,
+    ROOT = { "spec" },
+    lpath = "./?.lua;./?/init.lua",
+    helper = "spec/spec_helper.lua",
+  },
+}

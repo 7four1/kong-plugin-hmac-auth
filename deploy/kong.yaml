@@ -1,0 +1,27 @@
+_format_version: "3.0"
+
+# decK state file. Sync against the CONTROL PLANE admin API:
+#   deck gateway validate kong.yaml --kong-addr https://<cp-admin>:8001   # needs custom schema -> validate online
+#   deck gateway sync     kong.yaml --kong-addr https://<cp-admin>:8001
+# (older decK: `deck validate --online` / `deck sync -s kong.yaml`)
+
+services:
+  - name: partner-api
+    url: http://partner-svc.default.svc.cluster.local:8080
+    routes:
+      - name: partner-route
+        paths:
+          - /partner
+        strip_path: false
+    plugins:
+      - name: hmac-custom-auth
+        config:
+          client_id_header: X-Client-Id
+          timestamp_header: X-Timestamp
+          signature_header: X-Signature
+          clock_skew_seconds: 300
+          secrets:
+            # Plain values leak into git + the decK state. Prefer a Kong Vault
+            # reference once the vault backend is configured on CP *and* DP:
+            #   partner-a: "{vault://env/PARTNER_A_SECRET}"
+            partner-a: "super-secret-value-rotate-me"
