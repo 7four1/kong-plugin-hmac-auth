@@ -4,7 +4,7 @@ A custom authentication plugin that verifies HMAC-SHA256 request signatures.
 Built as a portfolio piece for demonstrating custom Kong plugin development
 in a senior/architect interview.
 
-## Why this plugin (interview framing)
+## Why this plugin  
 
 Kong's OSS distribution no longer ships a built-in `hmac-auth` plugin in
 recent versions, but HMAC request signing is still a common requirement for
